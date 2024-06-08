@@ -1,19 +1,24 @@
 import streamlit as st
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import img_to_array, load_img, ImageDataGenerator
+from tensorflow.keras.preprocessing.image import img_to_array, ImageDataGenerator
 from PIL import Image
 import numpy as np
 import requests
 from io import BytesIO
 import matplotlib.pyplot as plt
 import pickle
+from transformers import pipeline
 
-# Load the saved model
-model = tf.keras.models.load_model('emotions_classifier.h5')
+# Cache the loading of the model and training history
+@st.cache_resource
+def load_model_and_history():
+    model = tf.keras.models.load_model('emotions_classifier.h5')
+    with open('history.pkl', 'rb') as file:
+        history = pickle.load(file)
+    return model, history
 
-# Load the training history
-with open('history.pkl', 'rb') as file:
-    history = pickle.load(file)
+# Load the saved model and training history
+model, history = load_model_and_history()
 
 # Define class labels for predictions
 class_labels = ['angry', 'disgust', 'happy', 'love', 'nervous', 'sad', 'surprise']
@@ -101,7 +106,5 @@ def plot_predictions(model, generator, num_images=5):
 # Plot predictions for the first batch of test images
 if st.button("Show Predictions on Test Data"):
     plot_predictions(model, test_generator, num_images=5)
-
-    
 
 # streamlit run "C:/Users/User/Documents/NorthCentralUniversity/ModelDeployment/Emotions/emotions_app.py"
