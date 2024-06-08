@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import pickle
 
 # Load the saved model
-model = tf.keras.models.load_model('C:/Users/User/Documents/NorthCentralUniversity/ModelDeployment/Emotions/emotions_classifier.h5')
+model = tf.keras.models.load_model('emotions_classifier.h5')
 
 # Load the training history
-with open('C:/Users/User/Documents/NorthCentralUniversity/ModelDeployment/Emotions/history.pkl', 'rb') as file:
+with open('history.pkl', 'rb') as file:
     history = pickle.load(file)
 
 # Define class labels for predictions
@@ -49,7 +49,7 @@ if image_url:
 # Assuming you have a directory called 'test' with subdirectories for each emotion
 test_datagen = ImageDataGenerator(rescale=1./255)
 test_generator = test_datagen.flow_from_directory(
-    'C:/Users/User/Documents/NorthCentralUniversity/ModelDeployment/Emotions/test',  # Update this to your test dataset path
+    'test',  # Update this to your test dataset path
     target_size=(128, 128),
     batch_size=32,
     class_mode='categorical'
