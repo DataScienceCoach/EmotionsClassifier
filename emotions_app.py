@@ -31,7 +31,7 @@ def predict_image(image):
     return class_labels[np.argmax(prediction)]
 
 # Streamlit app
-st.title('GM Analytics Emotions Image Classifier')
+st.title('GM Analytics Emotion Image Classifier')
 st.write("Enter the URL of any Emotion image and the model will predict the emotion of the image. The Model includes prediction result, plot the evaluation chart of the model on a test dataset, and plot the training history.")
 st.write("Example link: [Click and copy this Example Image link](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrAPtLT44fxO96YvpN56Tgd8lfwtzQlg2AYg&s)")
 
